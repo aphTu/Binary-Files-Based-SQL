@@ -2,7 +2,11 @@
 
 Logical::Logical (string string_data): _data(string_data),Token(string_data){
   _type = "Logical";
-  _rpn_prio = 1;
+  if(_data == "and"){
+    _rpn_prio = 2;
+  } else {
+    _rpn_prio = 1;
+  }
 }
 
 

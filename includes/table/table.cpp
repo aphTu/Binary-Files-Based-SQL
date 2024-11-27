@@ -220,9 +220,12 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition){
       {
         Relational* top = static_cast<Relational*>(op_stack.top());
         Relational* current_iter = static_cast<Relational*>(*it);
-        if(top->get_rpn_prio() >= current_iter->get_rpn_prio())
+        while(top->get_rpn_prio() >= current_iter->get_rpn_prio())
         {
           postfix.push(op_stack.pop());
+          if(op_stack.size() > 0){
+            top = static_cast<Relational*>(op_stack.top());
+          } else break;
         }
       
       } 
@@ -231,14 +234,21 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition){
         if(op_stack.size()> 0 && op_stack.top()->get_type() == "Relational"){
           Relational* top = static_cast<Relational*>(op_stack.top());
           Logical* current_iter = static_cast<Logical*>(*it);
-          if(top->get_rpn_prio() >= current_iter->get_rpn_prio()){
+          while(top->get_rpn_prio() >= current_iter->get_rpn_prio()){
             postfix.push(op_stack.pop());
+
+            if(op_stack.size() > 0){
+              top = static_cast<Relational*> (op_stack.top());
+            } else break;
           }
         } else if (op_stack.size() > 0 && op_stack.top()->get_type() == "Logical"){
           Logical* top = static_cast<Logical*>(op_stack.top());
           Logical* current_iter = static_cast<Logical*>(*it);
-          if(top->get_rpn_prio() >= current_iter->get_rpn_prio()){
+          while(top->get_rpn_prio() >= current_iter->get_rpn_prio()){
             postfix.push(op_stack.pop());
+            if(op_stack.size() > 0){
+              top = static_cast<Logical*> (op_stack.top());
+            } else break;
           }
         } 
         op_stack.push(*it);
@@ -254,7 +264,7 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition){
     postfix.push(op_stack.pop());
   }
 
-  // cout << "final postfix: "<<postfix << endl;
+  cout << "final postfix: "<<postfix << endl;
   return select(fields,postfix);
 }
 
@@ -305,9 +315,18 @@ Table Table::select(vectorstr& condition){
   // }
   // // cout << "og select_recnos: " << _select_recnos << endl;
   // // cout << "sample select_recnos: " << sample.select_recnos() << endl;
-
+  
   // f.close();
-
+  // ifstream read;
+  // read.open(_name+"_fields.text");
+  // string line;
+  // int i = 0;
+  // vector<string> field_name;
+  // while(getline(read,line)){
+  //   field_name+= line;
+  // }
+  // read.close();
+  // set_fields(field_name);
   return select(_field_names,condition);
 }
 

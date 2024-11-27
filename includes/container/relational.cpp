@@ -3,7 +3,7 @@
 
 Relational::Relational (string string_data): _data(string_data), Token(string_data){
   _type  = "Relational";
-  _rpn_prio = 2;
+  _rpn_prio = 3;
 }
 vectorlong Relational::eval(TokenStr field, TokenStr value, vector<mmap_sl> indices, map_sl fields){
   long search = fields.at(field.get_data());

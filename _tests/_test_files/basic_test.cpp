@@ -38,12 +38,13 @@ const vector<string> command_list = {
 /*16*/     "select * from student",
 /*17*/     "select * from student where (major=CS or major=Art)",
 /*18*/     "select * from student where lname>J",
-/*19*/     "select * from student where lname>J and (major=CS or major=Art)"
-
+/*19*/     "select * from student where lname>J and (major=CS or major=Art)",
+            "select * from student where fname = Flo and lname = Yao or major = CS",
+            "select * from student where (fname = Flo and lname = Yao) or major = CS"
 };
 
 const int MAKE_TABLE_COMMANDS = 11;
-const int SELECT_COMMANDS = 20;
+const int SELECT_COMMANDS = 22;
 
 bool sql_basic(bool debug = false)
 {
@@ -69,14 +70,14 @@ bool sql_basic(bool debug = false)
           else
                t = sql.command(command_list[i]);
           cout << "basic_test: records selected: "<<sql.select_recnos() << endl;
-          // cout << "table: \n";
-          // cout << t << endl;
+          cout << "table: \n";
+          cout << t << endl;
      }
 
      cout << "----- END TEST --------" << endl;
 
 
-    SQL bruh("_!sample.txt");
+    // SQL bruh("_!sample.txt");
      return true;
 }
 

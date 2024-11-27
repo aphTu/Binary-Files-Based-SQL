@@ -56,12 +56,14 @@ class SQL{
   }
   Table select_table(mmap_ss ptree){
     Table re(_table_name);
+    // ptree.print_lookup();
     bool where = ptree.contains("where");
     if(ptree["fields"][0] == "*" && !where){
       return re.select_all();
     } else if (!where && ptree["fields"][0]!= "*"){
       return re.select_all(ptree["fields"]);
     } else if (ptree["fields"][0] == "*"){
+
       return re.select(ptree["condition"]);
     } else {
       return re.select(ptree["fields"],ptree["condition"]);
