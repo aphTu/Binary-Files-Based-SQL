@@ -162,7 +162,10 @@ bool Parser::get_parse_tree(){
     }
   }
   // ptree.print_lookup();
-
+  if(!input_q.empty()){
+    cout << "this shit failed\n";
+    exit(1);
+  }
   // cout << input_q << endl;
   if (_adjacency_table[state][0] == 1){
     // cout << "this happen success\n";
