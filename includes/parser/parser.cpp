@@ -101,7 +101,6 @@ bool Parser::get_parse_tree(){
   bool success = false;
   // cout << input_q << endl;
   bool debug = false;
-  bool quotation_mode = false;
   string yes = "yes";
   while(!(input_q.empty())){
     string item = input_q.pop();

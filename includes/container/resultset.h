@@ -11,6 +11,9 @@ class ResultSet: public Token{
   public:
   ResultSet(vectorlong string_data): _data(string_data),Token(vect_to_string(string_data)){
     _type = "ResultSet";
+    sort(_data.begin(), _data.end());
+
+
   }
   vectorlong get_data(){return _data;}
   string vect_to_string(vectorlong data){

@@ -76,22 +76,61 @@ const int MAKE_TABLE_COMMANDS = 11;
 const int SELECT_COMMANDS = 20;
 bool test_stub(bool debug = false)
 {
+
+
+  
  if (debug){
 
+    // SQL sql;
+    //  Table t;
+    //  cout << ">" << command_list[0] << endl;
+    //  sql.command(command_list[0]);
+    //  cout << "basic_test: table created." << endl<<endl;
+
+    //  for (int i = 0; i < command_list.size(); i++)
+    //  {
+    //       cout << ">" << command_list[i] << endl;
+    //       cout<< "here is yo table \n" << sql.command(command_list[i]);
+    //       cout << "basic_test: records selected: "<<sql.select_recnos() << endl;
+
+    //  }
+   vector<string> cmds = {
+        "select * from student where major = CS or major = Art or fname = Flo and lname = Yao",
+        "select * from student where (fname=Flo)",
+        "select * from student where fname = Flo or (major > Art and lname < Z)",
+        "select * from student where (fname = Flo) or (lname < Z)",
+        "select * from student where (fname = Flo and lname = Yao or major = CS)",
+        "select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        "select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))",
+        "select * from student where fname = Flo and lname = Yao",
+        "select * from student where fname = Flo or (lname = Yao or major = CS)",
+        "select * from student where (fname = Flo or lname = Yao) and major = CS",
+        "select * from student where (fname = Flo or lname = Yao) and (major = CS or major = Art)",
+        "select * from student where (fname = Flo or (lname = Yao and (major = CS or major = Art)))",
+        "select * from student where fname = Flo or (lname = Yao and (major = CS or major = Art))",
+        "select * from student where (fname = Flo and (lname = Yao or major = CS or major = Art))",
+        "select * from student where (fname = Flo and lname = Yao or major = CS or major = Art)",
+        "select * from student where (fname = Flo and lname = Yao)",
+        "select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        "select * from student where (fname = Flo and (lname = Yao or lname = Jackson) or major = CS and age <= 30)",
+        "select * from student where ((fname = Flo and lname = Yao) or lname = Jackson) or major = CS and age <= 30",
+        "select * from student where (fname = Flo or (lname = Yao and (major = CS or major = Art)) or lname = Jackson)",
+    };
+
     SQL sql;
-     Table t;
-     cout << ">" << command_list[0] << endl;
-     sql.command(command_list[0]);
-     cout << "basic_test: table created." << endl<<endl;
+    Table t;
 
-     for (int i = 0; i < command_list.size(); i++)
-     {
-          cout << ">" << command_list[i] << endl;
-          cout<< "here is yo table \n" << sql.command(command_list[i]);
-          cout << "basic_test: records selected: "<<sql.select_recnos() << endl;
-
-     }
-
+    cout << endl
+        << endl;
+    for (int i = 0; i < cmds.size(); i++)
+    {
+        cout << "\n>" << cmds[i] << endl;
+        if (debug)
+            cout << sql.command(cmds[i]) << endl;
+        else
+            t = sql.command(cmds[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
 
   }
 
