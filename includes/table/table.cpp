@@ -209,10 +209,20 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition){
       op_stack.push(*it);
     }else if (type == "RightParen")
     {
-      findingLeftParen(postfix,op_stack);
+      // findingLeftParen(postfix,op_stack);
     //   cout << "postfix: "<<postfix << endl;
     // cout << "op_stack: " << op_stack <<endl;
+    Stack<Token*> looping_stack = op_stack;
+    for(Stack<Token*>::Iterator it = looping_stack.begin();it!= looping_stack.end();it++){
+      Token* item = *it;
 
+      if(item->get_type()!= "LeftParen"){
+        postfix.push(op_stack.pop());
+      } else {
+        op_stack.pop();
+        break;
+      }
+    }
       continue;
     }else if(type == "Relational")
     {
