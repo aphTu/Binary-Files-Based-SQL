@@ -228,52 +228,64 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition){
     {
       if(op_stack.size() > 0 &&op_stack.top()->get_type() == "Relational")
       {
-        Relational* top = static_cast<Relational*>(op_stack.top());
-        Relational* current_iter = static_cast<Relational*>(*it);
-        while(top->get_rpn_prio() >= current_iter->get_rpn_prio())
-        {
-          postfix.push(op_stack.pop());
-          if(op_stack.size() > 0){
-            top = static_cast<Relational*>(op_stack.top());
-          } else break;
-        }
+        postfix.push(op_stack.pop());
       
       } 
       op_stack.push(*it);
     }else if (type == "Logical"){
-        if(op_stack.size()> 0 && op_stack.top()->get_type() == "Relational"){
-          Relational* top = static_cast<Relational*>(op_stack.top());
-          Logical* current_iter = static_cast<Logical*>(*it);
-          while(top->get_rpn_prio() >= current_iter->get_rpn_prio()){
-            postfix.push(op_stack.pop());
+        // if(op_stack.size()> 0 && op_stack.top()->get_type() == "Relational"){
+        //   Relational* top = static_cast<Relational*>(op_stack.top());
+        //   Logical* current_iter = static_cast<Logical*>(*it);
+        //   while(top->get_rpn_prio() >= current_iter->get_rpn_prio()){
+        //     postfix.push(op_stack.pop());
 
-            if(op_stack.size() > 0){
-              top = static_cast<Relational*> (op_stack.top());
-            } else break;
+        //     if(op_stack.size() > 0){
+        //       top = static_cast<Relational*> (op_stack.top());
+        //     } else break;
+        //   }
+        // } else if (op_stack.size() > 0 && op_stack.top()->get_type() == "Logical"){
+        //   Logical* top = static_cast<Logical*>(op_stack.top());
+        //   Logical* current_iter = static_cast<Logical*>(*it);
+        //   while(top->get_rpn_prio() >= current_iter->get_rpn_prio()){
+        //     postfix.push(op_stack.pop());
+        //     if(op_stack.size() > 0){
+        //       top = static_cast<Logical*> (op_stack.top());
+        //     } else break;
+        //   }
+        // } 
+        Logical* current_iter = static_cast<Logical*> (*it);
+        if(current_iter->get_data() == "and"){
+          if(op_stack.empty()){
+            op_stack.push(*it);
           }
-        } else if (op_stack.size() > 0 && op_stack.top()->get_type() == "Logical"){
-          Logical* top = static_cast<Logical*>(op_stack.top());
-          Logical* current_iter = static_cast<Logical*>(*it);
-          while(top->get_rpn_prio() >= current_iter->get_rpn_prio()){
+
+          
+          while(!op_stack.empty() && op_stack.top()->get_type() == "Relational"){
             postfix.push(op_stack.pop());
-            if(op_stack.size() > 0){
-              top = static_cast<Logical*> (op_stack.top());
-            } else break;
           }
-        } 
-        op_stack.push(*it);
+          op_stack.push(*it);
+        } else if(current_iter->get_data() == "or"){
+          if(op_stack.empty()){
+            op_stack.push(*it);
+          }
+
+          while(!op_stack.empty() && op_stack.top()->get_type()!= "LeftParen"){
+            postfix.push(op_stack.pop());
+          }
+          op_stack.push(*it);
+        }
     }else if(type == "TokenStr"){
         postfix.push(*it);
     }
-
     // cout << "postfix: "<<postfix << endl;
-    // cout << "op_stack: " << op_stack <<endl;
+    cout << "op_stack: " << op_stack <<endl;
   }
 
   while(!op_stack.empty()){
     postfix.push(op_stack.pop());
   }
 
+  assert(op_stack.empty());
   cout << "final postfix: "<<postfix << endl;
   return select(fields,postfix);
 }

@@ -115,6 +115,12 @@ bool test_stub(bool debug = false)
         "select * from student where (fname = Flo and (lname = Yao or lname = Jackson) or major = CS and age <= 30)",
         "select * from student where ((fname = Flo and lname = Yao) or lname = Jackson) or major = CS and age <= 30",
         "select * from student where (fname = Flo or (lname = Yao and (major = CS or major = Art)) or lname = Jackson)",
+        "select * from student where (age < 17 or age > 20) and (lname = Jackson or fname = Flo) and city = SF",
+        "select * from student where (((((fname = Yao)))))",
+        //7 missing left paren/     
+        "select lname, fname, major from student where (lname=Yang or major=CS) and age<23 )or lname=Jackson",
+//8 missing right paren/     
+"select lname, fname, major from student where lname=Yang or major=CS and age<23 )or lname=Jackson",
     };
 
     SQL sql;
