@@ -1,29 +1,14 @@
 
-# Work Report
+# Binary Files Based SQL database
 
-## Name: <ins> your name goes here </ins>
+## Description: 
+-This is an simplify version of an SQL database with the abiltiy to add, search, and filter data using a binary files
+-Does not include the ability to remove data - will have to implement it in the future
 
-## Features:
+## Allowed Commands:
+-It is easier to have some examples command and explains them than listing them out
 
-- Not Implemented:
-  - what features have been implemented
 
-<br><br>
-
-- Implemented:
-  - what has been implemented
-
-<br><br>
-
-- Partly implemented:
-  - what features have not been implemented
-
-<br><br>
-
-- Bugs
-  - Known bugs
-
-<br><br>
 
 # Reflections:
 
