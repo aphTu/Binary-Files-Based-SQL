@@ -4,7 +4,7 @@
 ## Description: 
 - This is an simplify version of an SQL database with the abiltiy to add, search, and filter data using a binary files
 - Does not include the ability to remove data - will have to implement it in the future
-
+- It also allowed you to create a files that has a list of commands and it'll execute all commands within that file.
 ## Allowed Commands:
 - It is easier to have some examples command and explains them than listing them out
   - "make table employee fields last, first, dep, salary, year"
@@ -31,15 +31,8 @@
       - ">, <, <=, >=": used to filter any data in a specific fields is greater than/less than a certain value
       - parenthesis is used to extent the conditions and it should work like a normal parenthesis
 
-
-
-# Reflections:
-
-- Any thoughts you may have and would like to share.
-
 # **Example Output**
 <pre>
-<br/><br/><br/><br/>
   >make table employee fields  last,       first,         dep,      salary, year
 basic_test: table created.
 
